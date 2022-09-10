@@ -1,0 +1,10 @@
+equation: lhs=expr '=' rhs=expr
+expr: or_expr | and_expr | maybe_not
+or_expr: operands=r'[+|]'.and_expr+
+and_expr: operands=r'[*&]?'.maybe_not+
+maybe_not: not_expr | atom
+not_expr: r'[~!]' ~ atom=atom
+atom: grouped_expr | variable | value
+grouped_expr: '(' ~ expr=expr ')'
+variable: name=r'[a-z](_?[0-9]+|\x27*)'
+value: num=r'[01]'
